@@ -1,6 +1,6 @@
 # Reranker Evaluation: Cohere v3.5 vs ZeRank-1
 
-A comprehensive evaluation comparing two state-of-the-art reranking models on the FiQA financial Q&A dataset.
+A comprehensive evaluation comparing two state-of-the-art reranking models on the FiQA financial Q&A dataset. Benchmarking Cohere v3.5 and ZeRank-1 rerankers in a RAG pipeline, evaluating accuracy (nDCG, Recall), latency, and LLM preferences.
 
 ## Overview
 
