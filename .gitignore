@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results and data (large files)
+*.png
+*.jsonl
+*.faiss
+indexes/
+cohere_final.jsonl
+zerank_final.jsonl
+fiqa_small_top50.jsonl
+metrics_final.json
+llm_judge_results.json
+
+# Keep data directory structure but not large files
+fiqa_small/corpus.jsonl
+fiqa_small/queries.jsonl
+!fiqa_small/qrels/test.tsv
+!fiqa_small/qrels/
+
+# Environment variables
+.env
+*.env
+
+# Logs
+*.log
