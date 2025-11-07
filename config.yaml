@@ -1,0 +1,88 @@
+# RAG Evaluation Pipeline Configuration
+
+# Dataset configuration
+dataset:
+  name: "scifact"
+  base_path: "scifact"
+  corpus_file: "corpus.jsonl"
+  queries_file: "queries.jsonl"
+  qrels_file: "qrels/test.tsv"
+  
+# Embedding configuration
+embedding:
+  model: "BAAI/bge-small-en-v1.5"
+  batch_size: 32
+  normalize: true
+  
+# Retrieval configuration
+retrieval:
+  method: "faiss"  # Options: faiss
+  index_type: "flat_ip"  # Options: flat_ip, ivf, hnsw
+  top_k: 50  # Number of documents to retrieve
+  query_subset: 50  # Number of queries to process (null for all)
+  
+# Reranker configuration
+rerankers:
+  - name: "cohere"
+    type: "cohere"
+    model: "rerank-v3.5"
+    api_key_env: "COHERE_API_KEY"
+    top_k: 15
+  - name: "zerank1"
+    type: "zerank"
+    model: "zerank-1"
+    api_key_env: "ZERANK_API_KEY"
+    top_k: 15
+  - name: "zerank-light"
+    type: "zerank"
+    model: "zerank-1-small"
+    api_key_env: "ZERANK_API_KEY"
+    top_k: 15
+  - name: "jina"
+    type: "jina"
+    model: "jina-reranker-v2-base-multilingual"
+    api_key_env: "JINA_API_KEY"
+    top_k: 15
+  - name: "voyage"
+    type: "voyage"
+    model: "rerank-2.5"
+    api_key_env: "VOYAGE_API_KEY"
+    top_k: 15
+  - name: "voyage-light"
+    type: "voyage"
+    model: "rerank-2.5-lite"
+    api_key_env: "VOYAGE_API_KEY"
+    top_k: 15
+  - name: "qwen3-0.6b"
+    type: "qwen"
+    model: "Qwen/Qwen3-Reranker-0.6B"
+    api_key_env: ""  # Qwen models don't need API keys
+    top_k: 15
+
+# Evaluation configuration
+evaluation:
+  metrics: ["ndcg@5", "ndcg@10", "recall@5", "recall@10"]
+  generate_plots: true
+  
+# LLM Judge configuration
+llm_judge:
+  enabled: true
+  provider: "azure_openai"  
+  azure_api_key_env: "AZURE_API_KEY"
+  azure_resource_name_env: "AZURE_RESOURCE_NAME"
+  azure_deployment_id_env: "AZURE_DEPLOYMENT_ID"
+  elo:
+    initial_rating: 1500
+    k_factor: 32
+  prompt:
+    truncate_doc_length: 300
+    top_k_for_comparison: 15
+
+# Pipeline execution settings
+pipeline:
+  stages:
+    - rerank  
+    - evaluate
+    - llm_judge
+  skip_if_exists: false  # Set to false to rerun with new Qwen results
+

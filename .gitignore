@@ -1,0 +1,14 @@
+runs/
+datasets/
+logs/
+*.png
+*.pdf
+*.csv
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.venv/
+venv/
+.env
+*.log

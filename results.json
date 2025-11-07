@@ -1,0 +1,1355 @@
+[
+  {
+    "name": "zerank1",
+    "overall": {
+      "elo": 1641.95,
+      "elo_std": 45.29,
+      "wins": 1321,
+      "losses": 706,
+      "ties": 73,
+      "win_rate": 0.629,
+      "total_judgments": 2100,
+      "avg_latency_ms": 1125.62,
+      "avg_ndcg_10": 0.67595
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1658.22,
+        "elo_std": 45.91,
+        "wins": 230,
+        "losses": 111,
+        "ties": 9,
+        "win_rate": 0.6571,
+        "metrics": {
+          "ndcg@5": 0.1147,
+          "ndcg@10": 0.121,
+          "recall@5": 0.105,
+          "recall@10": 0.125
+        },
+        "latency": {
+          "mean_ms": 995.37,
+          "p50_ms": 992.47,
+          "p90_ms": 1124.27
+        }
+      },
+      "SciFact": {
+        "elo": 1587.66,
+        "elo_std": 48.56,
+        "wins": 234,
+        "losses": 112,
+        "ties": 4,
+        "win_rate": 0.6686,
+        "metrics": {
+          "ndcg@5": 0.8632,
+          "ndcg@10": 0.8655,
+          "recall@5": 0.916,
+          "recall@10": 0.92
+        },
+        "latency": {
+          "mean_ms": 1358.28,
+          "p50_ms": 1287.32,
+          "p90_ms": 1570.58
+        }
+      },
+      "PG": {
+        "elo": 1598.36,
+        "elo_std": 51.63,
+        "wins": 204,
+        "losses": 146,
+        "ties": 0,
+        "win_rate": 0.5829,
+        "latency": {
+          "mean_ms": 1237.56,
+          "p50_ms": 1216.57,
+          "p90_ms": 1316.22
+        }
+      },
+      "business_reports": {
+        "elo": 1566.34,
+        "elo_std": 47.64,
+        "wins": 198,
+        "losses": 146,
+        "ties": 6,
+        "win_rate": 0.5657,
+        "latency": {
+          "mean_ms": 1072.21,
+          "p50_ms": 1069.52,
+          "p90_ms": 1272.54
+        }
+      },
+      "MSMARCO": {
+        "elo": 1591.89,
+        "elo_std": 44.96,
+        "wins": 205,
+        "losses": 96,
+        "ties": 49,
+        "win_rate": 0.5857,
+        "metrics": {
+          "ndcg@5": 0.9672,
+          "ndcg@10": 0.9706,
+          "recall@5": 0.9867,
+          "recall@10": 0.9933
+        },
+        "latency": {
+          "mean_ms": 1005.46,
+          "p50_ms": 992.74,
+          "p90_ms": 1070.59
+        }
+      },
+      "DBPedia": {
+        "elo": 1631.8,
+        "elo_std": 45.24,
+        "wins": 250,
+        "losses": 95,
+        "ties": 5,
+        "win_rate": 0.7143,
+        "metrics": {
+          "ndcg@5": 0.7149,
+          "ndcg@10": 0.7467,
+          "recall@5": 0.0639,
+          "recall@10": 0.1031
+        },
+        "latency": {
+          "mean_ms": 1084.85,
+          "p50_ms": 1035.93,
+          "p90_ms": 1243.04
+        }
+      }
+    },
+    "comparisons": {
+      "jina": {
+        "wins": 204,
+        "losses": 88,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.68
+      },
+      "bge-m3": {
+        "wins": 218,
+        "losses": 78,
+        "ties": 4,
+        "total": 300,
+        "win_rate": 0.7267
+      },
+      "voyage": {
+        "wins": 145,
+        "losses": 141,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.4833
+      },
+      "zerank-light": {
+        "wins": 174,
+        "losses": 105,
+        "ties": 21,
+        "total": 300,
+        "win_rate": 0.58
+      },
+      "ctxl": {
+        "wins": 190,
+        "losses": 102,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.6333
+      },
+      "cohere": {
+        "wins": 217,
+        "losses": 72,
+        "ties": 11,
+        "total": 300,
+        "win_rate": 0.7233
+      },
+      "voyage-light": {
+        "wins": 173,
+        "losses": 120,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.5767
+      }
+    }
+  },
+  {
+    "name": "voyage-rerank-2.5",
+    "overall": {
+      "elo": 1628.81,
+      "elo_std": 49.78,
+      "wins": 1314,
+      "losses": 692,
+      "ties": 94,
+      "win_rate": 0.6257,
+      "total_judgments": 2100,
+      "avg_latency_ms": 610.35,
+      "avg_ndcg_10": 0.68007
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1626.12,
+        "elo_std": 42.45,
+        "wins": 242,
+        "losses": 95,
+        "ties": 13,
+        "win_rate": 0.6914,
+        "metrics": {
+          "ndcg@5": 0.108,
+          "ndcg@10": 0.1194,
+          "recall@5": 0.0983,
+          "recall@10": 0.1283
+        },
+        "latency": {
+          "mean_ms": 539.93,
+          "p50_ms": 563.95,
+          "p90_ms": 625.81
+        }
+      },
+      "SciFact": {
+        "elo": 1643.86,
+        "elo_std": 52.97,
+        "wins": 237,
+        "losses": 107,
+        "ties": 6,
+        "win_rate": 0.6771,
+        "metrics": {
+          "ndcg@5": 0.865,
+          "ndcg@10": 0.8825,
+          "recall@5": 0.892,
+          "recall@10": 0.94
+        },
+        "latency": {
+          "mean_ms": 666.69,
+          "p50_ms": 620.65,
+          "p90_ms": 818.65
+        }
+      },
+      "PG": {
+        "elo": 1515.57,
+        "elo_std": 51.18,
+        "wins": 219,
+        "losses": 131,
+        "ties": 0,
+        "win_rate": 0.6257,
+        "latency": {
+          "mean_ms": 587.73,
+          "p50_ms": 610.79,
+          "p90_ms": 745.82
+        }
+      },
+      "business_reports": {
+        "elo": 1543.52,
+        "elo_std": 53.34,
+        "wins": 211,
+        "losses": 130,
+        "ties": 9,
+        "win_rate": 0.6029,
+        "latency": {
+          "mean_ms": 713.65,
+          "p50_ms": 617.05,
+          "p90_ms": 833.58
+        }
+      },
+      "MSMARCO": {
+        "elo": 1546.5,
+        "elo_std": 39.47,
+        "wins": 172,
+        "losses": 118,
+        "ties": 60,
+        "win_rate": 0.4914,
+        "metrics": {
+          "ndcg@5": 0.9713,
+          "ndcg@10": 0.974,
+          "recall@5": 0.9933,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 583.13,
+          "p50_ms": 611.31,
+          "p90_ms": 629.57
+        }
+      },
+      "DBPedia": {
+        "elo": 1634.2,
+        "elo_std": 48.87,
+        "wins": 233,
+        "losses": 111,
+        "ties": 6,
+        "win_rate": 0.6657,
+        "metrics": {
+          "ndcg@5": 0.6573,
+          "ndcg@10": 0.7444,
+          "recall@5": 0.062,
+          "recall@10": 0.11
+        },
+        "latency": {
+          "mean_ms": 570.95,
+          "p50_ms": 610.26,
+          "p90_ms": 734.39
+        }
+      }
+    },
+    "comparisons": {
+      "voyage-light": {
+        "wins": 169,
+        "losses": 104,
+        "ties": 27,
+        "total": 300,
+        "win_rate": 0.5633
+      },
+      "zerank1": {
+        "wins": 141,
+        "losses": 145,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.47
+      },
+      "bge-m3": {
+        "wins": 218,
+        "losses": 68,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.7267
+      },
+      "cohere": {
+        "wins": 225,
+        "losses": 65,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.75
+      },
+      "jina": {
+        "wins": 219,
+        "losses": 74,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.73
+      },
+      "zerank-light": {
+        "wins": 161,
+        "losses": 125,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.5367
+      },
+      "ctxl": {
+        "wins": 181,
+        "losses": 111,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.6033
+      }
+    }
+  },
+  {
+    "name": "ctxl-rerank-v2-instruct-multilingual",
+    "overall": {
+      "elo": 1549.65,
+      "elo_std": 51.22,
+      "wins": 950,
+      "losses": 1093,
+      "ties": 57,
+      "win_rate": 0.4524,
+      "total_judgments": 2100,
+      "avg_latency_ms": 3010.42,
+      "avg_ndcg_10": 0.68668
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1424.3,
+        "elo_std": 46.99,
+        "wins": 110,
+        "losses": 230,
+        "ties": 10,
+        "win_rate": 0.3143,
+        "metrics": {
+          "ndcg@5": 0.1191,
+          "ndcg@10": 0.1248,
+          "recall@5": 0.1233,
+          "recall@10": 0.135
+        },
+        "latency": {
+          "mean_ms": 2912.86,
+          "p50_ms": 2862.63,
+          "p90_ms": 3288.53
+        }
+      },
+      "SciFact": {
+        "elo": 1551.63,
+        "elo_std": 57.18,
+        "wins": 177,
+        "losses": 173,
+        "ties": 0,
+        "win_rate": 0.5057,
+        "metrics": {
+          "ndcg@5": 0.8667,
+          "ndcg@10": 0.8747,
+          "recall@5": 0.916,
+          "recall@10": 0.94
+        },
+        "latency": {
+          "mean_ms": 3316.85,
+          "p50_ms": 3197.75,
+          "p90_ms": 4004.22
+        }
+      },
+      "PG": {
+        "elo": 1497.6,
+        "elo_std": 52.22,
+        "wins": 195,
+        "losses": 155,
+        "ties": 0,
+        "win_rate": 0.5571,
+        "latency": {
+          "mean_ms": 3195.3,
+          "p50_ms": 2951.42,
+          "p90_ms": 3780.71
+        }
+      },
+      "business_reports": {
+        "elo": 1479.83,
+        "elo_std": 48.98,
+        "wins": 146,
+        "losses": 202,
+        "ties": 2,
+        "win_rate": 0.4171,
+        "latency": {
+          "mean_ms": 2882.7,
+          "p50_ms": 2686.1,
+          "p90_ms": 3161.18
+        }
+      },
+      "MSMARCO": {
+        "elo": 1385.02,
+        "elo_std": 51.17,
+        "wins": 130,
+        "losses": 175,
+        "ties": 45,
+        "win_rate": 0.3714,
+        "metrics": {
+          "ndcg@5": 0.9752,
+          "ndcg@10": 0.9752,
+          "recall@5": 1.0,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 2951.67,
+          "p50_ms": 2853.39,
+          "p90_ms": 3397.78
+        }
+      },
+      "DBPedia": {
+        "elo": 1568.35,
+        "elo_std": 54.99,
+        "wins": 192,
+        "losses": 158,
+        "ties": 0,
+        "win_rate": 0.5486,
+        "metrics": {
+          "ndcg@5": 0.7342,
+          "ndcg@10": 0.772,
+          "recall@5": 0.0673,
+          "recall@10": 0.1076
+        },
+        "latency": {
+          "mean_ms": 2803.13,
+          "p50_ms": 2786.04,
+          "p90_ms": 3137.88
+        }
+      }
+    },
+    "comparisons": {
+      "voyage-light": {
+        "wins": 131,
+        "losses": 161,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.4367
+      },
+      "cohere": {
+        "wins": 155,
+        "losses": 136,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.5167
+      },
+      "jina": {
+        "wins": 164,
+        "losses": 131,
+        "ties": 5,
+        "total": 300,
+        "win_rate": 0.5467
+      },
+      "bge-m3": {
+        "wins": 176,
+        "losses": 115,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.5867
+      },
+      "zerank1": {
+        "wins": 102,
+        "losses": 190,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.34
+      },
+      "zerank-light": {
+        "wins": 111,
+        "losses": 179,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.37
+      },
+      "voyage": {
+        "wins": 111,
+        "losses": 181,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.37
+      }
+    }
+  },
+  {
+    "name": "voyage-rerank-2.5-lite",
+    "overall": {
+      "elo": 1509.64,
+      "elo_std": 50.14,
+      "wins": 1058,
+      "losses": 961,
+      "ties": 81,
+      "win_rate": 0.5038,
+      "total_judgments": 2100,
+      "avg_latency_ms": 606.93,
+      "avg_ndcg_10": 0.67948
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1565.28,
+        "elo_std": 50.8,
+        "wins": 183,
+        "losses": 159,
+        "ties": 8,
+        "win_rate": 0.5229,
+        "metrics": {
+          "ndcg@5": 0.1111,
+          "ndcg@10": 0.1222,
+          "recall@5": 0.1033,
+          "recall@10": 0.135
+        },
+        "latency": {
+          "mean_ms": 685.77,
+          "p50_ms": 611.26,
+          "p90_ms": 829.24
+        }
+      },
+      "Scifact": {
+        "elo": 1405.48,
+        "elo_std": 56.31,
+        "wins": 127,
+        "losses": 223,
+        "ties": 0,
+        "win_rate": 0.3629,
+        "metrics": {
+          "ndcg@5": 0.8442,
+          "ndcg@10": 0.8488,
+          "recall@5": 0.892,
+          "recall@10": 0.9
+        },
+        "latency": {
+          "mean_ms": 641.73,
+          "p50_ms": 618.23,
+          "p90_ms": 816.09
+        }
+      },
+      "PG": {
+        "elo": 1605.84,
+        "elo_std": 47.19,
+        "wins": 183,
+        "losses": 167,
+        "ties": 0,
+        "win_rate": 0.5229,
+        "latency": {
+          "mean_ms": 637.35,
+          "p50_ms": 613.86,
+          "p90_ms": 816.82
+        }
+      },
+      "business_reports": {
+        "elo": 1588.65,
+        "elo_std": 53.56,
+        "wins": 200,
+        "losses": 141,
+        "ties": 9,
+        "win_rate": 0.5714,
+        "latency": {
+          "mean_ms": 579.66,
+          "p50_ms": 607.3,
+          "p90_ms": 815.83
+        }
+      },
+      "MSMARCO": {
+        "elo": 1526.65,
+        "elo_std": 45.77,
+        "wins": 165,
+        "losses": 124,
+        "ties": 61,
+        "win_rate": 0.4714,
+        "metrics": {
+          "ndcg@5": 0.9805,
+          "ndcg@10": 0.9834,
+          "recall@5": 0.9933,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 542.44,
+          "p50_ms": 610.74,
+          "p90_ms": 635.23
+        }
+      },
+      "DBPedia": {
+        "elo": 1502.44,
+        "elo_std": 52.63,
+        "wins": 200,
+        "losses": 147,
+        "ties": 3,
+        "win_rate": 0.5714,
+        "metrics": {
+          "ndcg@5": 0.6915,
+          "ndcg@10": 0.7635,
+          "recall@5": 0.0635,
+          "recall@10": 0.1106
+        },
+        "latency": {
+          "mean_ms": 554.66,
+          "p50_ms": 604.75,
+          "p90_ms": 664.04
+        }
+      }
+    },
+    "comparisons": {
+      "ctxl": {
+        "wins": 161,
+        "losses": 131,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.5367
+      },
+      "voyage": {
+        "wins": 104,
+        "losses": 169,
+        "ties": 27,
+        "total": 300,
+        "win_rate": 0.3467
+      },
+      "jina": {
+        "wins": 175,
+        "losses": 115,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.5833
+      },
+      "bge-m3": {
+        "wins": 191,
+        "losses": 100,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.6367
+      },
+      "cohere": {
+        "wins": 177,
+        "losses": 111,
+        "ties": 12,
+        "total": 300,
+        "win_rate": 0.59
+      },
+      "zerank-light": {
+        "wins": 130,
+        "losses": 162,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.4333
+      },
+      "zerank1": {
+        "wins": 120,
+        "losses": 173,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.4
+      }
+    }
+  },
+  {
+    "name": "bge-reranker-v2-m3",
+    "overall": {
+      "elo": 1467.62,
+      "elo_std": 53.89,
+      "wins": 693,
+      "losses": 1340,
+      "ties": 67,
+      "win_rate": 0.33,
+      "total_judgments": 2100,
+      "avg_latency_ms": 1890.76,
+      "avg_ndcg_10": 0.68585
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1361.99,
+        "elo_std": 51.56,
+        "wins": 118,
+        "losses": 226,
+        "ties": 6,
+        "win_rate": 0.3371,
+        "metrics": {
+          "ndcg@5": 0.1121,
+          "ndcg@10": 0.1202,
+          "recall@5": 0.105,
+          "recall@10": 0.13
+        },
+        "latency": {
+          "mean_ms": 1309.18,
+          "p50_ms": 1316.01,
+          "p90_ms": 1744.46
+        }
+      },
+      "Scifact": {
+        "elo": 1423.21,
+        "elo_std": 49.91,
+        "wins": 129,
+        "losses": 221,
+        "ties": 0,
+        "win_rate": 0.3686,
+        "metrics": {
+          "ndcg@5": 0.8426,
+          "ndcg@10": 0.8596,
+          "recall@5": 0.863,
+          "recall@10": 0.906
+        },
+        "latency": {
+          "mean_ms": 2927.88,
+          "p50_ms": 1580.61,
+          "p90_ms": 1862.48
+        }
+      },
+      "PG": {
+        "elo": 1393.0,
+        "elo_std": 45.64,
+        "wins": 118,
+        "losses": 232,
+        "ties": 0,
+        "win_rate": 0.3371,
+        "latency": {
+          "mean_ms": 2457.37,
+          "p50_ms": 1019.17,
+          "p90_ms": 1469.09
+        }
+      },
+      "business_reports": {
+        "elo": 1427.32,
+        "elo_std": 50.3,
+        "wins": 128,
+        "losses": 215,
+        "ties": 7,
+        "win_rate": 0.3657,
+        "latency": {
+          "mean_ms": 1142.86,
+          "p50_ms": 1106.29,
+          "p90_ms": 1640.78
+        }
+      },
+      "MSMARCO": {
+        "elo": 1396.14,
+        "elo_std": 45.08,
+        "wins": 94,
+        "losses": 204,
+        "ties": 52,
+        "win_rate": 0.2686,
+        "metrics": {
+          "ndcg@5": 0.9852,
+          "ndcg@10": 0.9852,
+          "recall@5": 1.0,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 2175.71,
+          "p50_ms": 812.17,
+          "p90_ms": 980.35
+        }
+      },
+      "DBPedia": {
+        "elo": 1466.28,
+        "elo_std": 54.43,
+        "wins": 106,
+        "losses": 242,
+        "ties": 2,
+        "win_rate": 0.3029,
+        "metrics": {
+          "ndcg@5": 0.7145,
+          "ndcg@10": 0.7784,
+          "recall@5": 0.063,
+          "recall@10": 0.1062
+        },
+        "latency": {
+          "mean_ms": 1331.59,
+          "p50_ms": 830.76,
+          "p90_ms": 1454.74
+        }
+      }
+    },
+    "comparisons": {
+      "zerank1": {
+        "wins": 78,
+        "losses": 218,
+        "ties": 4,
+        "total": 300,
+        "win_rate": 0.26
+      },
+      "jina": {
+        "wins": 128,
+        "losses": 159,
+        "ties": 13,
+        "total": 300,
+        "win_rate": 0.4267
+      },
+      "ctxl": {
+        "wins": 115,
+        "losses": 176,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.3833
+      },
+      "voyage": {
+        "wins": 68,
+        "losses": 218,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.2267
+      },
+      "voyage-light": {
+        "wins": 100,
+        "losses": 191,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.3333
+      },
+      "zerank-light": {
+        "wins": 84,
+        "losses": 209,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.28
+      },
+      "cohere": {
+        "wins": 120,
+        "losses": 169,
+        "ties": 11,
+        "total": 300,
+        "win_rate": 0.4
+      }
+    }
+  },
+  {
+    "name": "zerank-1-small",
+    "overall": {
+      "elo": 1458.35,
+      "elo_std": 54.59,
+      "wins": 1180,
+      "losses": 840,
+      "ties": 80,
+      "win_rate": 0.5619,
+      "total_judgments": 2100,
+      "avg_latency_ms": 1109.46,
+      "avg_ndcg_10": 0.67575
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1551.19,
+        "elo_std": 47.52,
+        "wins": 222,
+        "losses": 119,
+        "ties": 9,
+        "win_rate": 0.6343,
+        "metrics": {
+          "ndcg@5": 0.1137,
+          "ndcg@10": 0.1242,
+          "recall@5": 0.0983,
+          "recall@10": 0.125
+        },
+        "latency": {
+          "mean_ms": 969.43,
+          "p50_ms": 977.24,
+          "p90_ms": 1085.52
+        }
+      },
+      "SciFact": {
+        "elo": 1498.4,
+        "elo_std": 43.56,
+        "wins": 185,
+        "losses": 161,
+        "ties": 4,
+        "win_rate": 0.5286,
+        "metrics": {
+          "ndcg@5": 0.8692,
+          "ndcg@10": 0.8715,
+          "recall@5": 0.916,
+          "recall@10": 0.92
+        },
+        "latency": {
+          "mean_ms": 1344.71,
+          "p50_ms": 1272.37,
+          "p90_ms": 1551.83
+        }
+      },
+      "PG": {
+        "elo": 1547.32,
+        "elo_std": 49.84,
+        "wins": 216,
+        "losses": 134,
+        "ties": 0,
+        "win_rate": 0.6171,
+        
+        "latency": {
+          "mean_ms": 1223.58,
+          "p50_ms": 1187.16,
+          "p90_ms": 1307.33
+        }
+      },
+      "business_reports": {
+        "elo": 1548.22,
+        "elo_std": 44.53,
+        "wins": 198,
+        "losses": 140,
+        "ties": 12,
+        "win_rate": 0.5657,
+        "latency": {
+          "mean_ms": 1051.46,
+          "p50_ms": 1059.85,
+          "p90_ms": 1171.17
+        }
+      },
+      "MSMARCO": {
+        "elo": 1597.07,
+        "elo_std": 39.55,
+        "wins": 174,
+        "losses": 123,
+        "ties": 53,
+        "win_rate": 0.4971,
+        "metrics": {
+          "ndcg@5": 0.9648,
+          "ndcg@10": 0.9681,
+          "recall@5": 0.9867,
+          "recall@10": 0.9933
+        },
+        "latency": {
+          "mean_ms": 1014.38,
+          "p50_ms": 1009.79,
+          "p90_ms": 1096.66
+        }
+      },
+      "DBPedia": {
+        "elo": 1467.25,
+        "elo_std": 57.46,
+        "wins": 185,
+        "losses": 163,
+        "ties": 2,
+        "win_rate": 0.5286,
+        "metrics": {
+          "ndcg@5": 0.6833,
+          "ndcg@10": 0.7392,
+          "recall@5": 0.0608,
+          "recall@10": 0.1025
+        },
+        "latency": {
+          "mean_ms": 1053.22,
+          "p50_ms": 1034.13,
+          "p90_ms": 1169.77
+        }
+      }
+    },
+    "comparisons": {
+      "cohere": {
+        "wins": 192,
+        "losses": 96,
+        "ties": 12,
+        "total": 300,
+        "win_rate": 0.64
+      },
+      "jina": {
+        "wins": 208,
+        "losses": 84,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.6933
+      },
+      "voyage-light": {
+        "wins": 162,
+        "losses": 130,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.54
+      },
+      "zerank1": {
+        "wins": 105,
+        "losses": 174,
+        "ties": 21,
+        "total": 300,
+        "win_rate": 0.35
+      },
+      "voyage": {
+        "wins": 125,
+        "losses": 161,
+        "ties": 14,
+        "total": 300,
+        "win_rate": 0.4167
+      },
+      "bge-m3": {
+        "wins": 209,
+        "losses": 84,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.6967
+      },
+      "ctxl": {
+        "wins": 179,
+        "losses": 111,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.5967
+      }
+    }
+  },
+  {
+    "name": "cohere-rerank-v3.5",
+    "overall": {
+      "elo": 1402.74,
+      "elo_std": 51.31,
+      "wins": 793,
+      "losses": 1229,
+      "ties": 78,
+      "win_rate": 0.3776,
+      "total_judgments": 2100,
+      "avg_latency_ms": 492.42,
+      "avg_ndcg_10": 0.68865
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1378.25,
+        "elo_std": 50.56,
+        "wins": 121,
+        "losses": 222,
+        "ties": 7,
+        "win_rate": 0.3457,
+        "metrics": {
+          "ndcg@5": 0.1206,
+          "ndcg@10": 0.1267,
+          "recall@5": 0.1183,
+          "recall@10": 0.13
+        },
+        "latency": {
+          "mean_ms": 589.0,
+          "p50_ms": 602.74,
+          "p90_ms": 913.49
+        }
+      },
+      "SciFact": {
+        "elo": 1512.77,
+        "elo_std": 45.45,
+        "wins": 162,
+        "losses": 187,
+        "ties": 1,
+        "win_rate": 0.4629,
+        "metrics": {
+          "ndcg@5": 0.8684,
+          "ndcg@10": 0.8778,
+          "recall@5": 0.887,
+          "recall@10": 0.906
+        },
+        "latency": {
+          "mean_ms": 638.08,
+          "p50_ms": 612.46,
+          "p90_ms": 818.64
+        }
+      },
+      "PG": {
+        "elo": 1334.96,
+        "elo_std": 47.87,
+        "wins": 100,
+        "losses": 250,
+        "ties": 0,
+        "win_rate": 0.2857,
+        "latency": {
+          "mean_ms": 660.55,
+          "p50_ms": 612.99,
+          "p90_ms": 792.26
+        }
+      },
+      "business_reports": {
+        "elo": 1470.25,
+        "elo_std": 43.84,
+        "wins": 155,
+        "losses": 192,
+        "ties": 3,
+        "win_rate": 0.4429,
+        "latency": {
+          "mean_ms": 394.96,
+          "p50_ms": 324.35,
+          "p90_ms": 569.78
+        }
+      },
+      "MSMARCO": {
+        "elo": 1487.58,
+        "elo_std": 41.73,
+        "wins": 126,
+        "losses": 161,
+        "ties": 63,
+        "win_rate": 0.36,
+        "metrics": {
+          "ndcg@5": 0.9897,
+          "ndcg@10": 0.9897,
+          "recall@5": 1.0,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 317.32,
+          "p50_ms": 298.56,
+          "p90_ms": 319.8
+        }
+      },
+      "DBPedia": {
+        "elo": 1390.47,
+        "elo_std": 52.12,
+        "wins": 129,
+        "losses": 217,
+        "ties": 4,
+        "win_rate": 0.3686,
+        "metrics": {
+          "ndcg@5": 0.6905,
+          "ndcg@10": 0.7604,
+          "recall@5": 0.0626,
+          "recall@10": 0.1074
+        },
+        "latency": {
+          "mean_ms": 354.61,
+          "p50_ms": 305.04,
+          "p90_ms": 522.53
+        }
+      }
+    },
+    "comparisons": {
+      "ctxl": {
+        "wins": 136,
+        "losses": 155,
+        "ties": 9,
+        "total": 300,
+        "win_rate": 0.4533
+      },
+      "zerank-light": {
+        "wins": 96,
+        "losses": 192,
+        "ties": 12,
+        "total": 300,
+        "win_rate": 0.32
+      },
+      "voyage": {
+        "wins": 65,
+        "losses": 225,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.2167
+      },
+      "voyage-light": {
+        "wins": 111,
+        "losses": 177,
+        "ties": 12,
+        "total": 300,
+        "win_rate": 0.37
+      },
+      "zerank1": {
+        "wins": 72,
+        "losses": 217,
+        "ties": 11,
+        "total": 300,
+        "win_rate": 0.24
+      },
+      "bge-m3": {
+        "wins": 169,
+        "losses": 120,
+        "ties": 11,
+        "total": 300,
+        "win_rate": 0.5633
+      },
+      "jina": {
+        "wins": 144,
+        "losses": 143,
+        "ties": 13,
+        "total": 300,
+        "win_rate": 0.48
+      }
+    }
+  },
+  {
+    "name": "jina-reranker-v2-base-multilingual",
+    "overall": {
+      "elo": 1335.06,
+      "elo_std": 50.68,
+      "wins": 794,
+      "losses": 1242,
+      "ties": 64,
+      "win_rate": 0.3781,
+      "total_judgments": 2100,
+      "avg_latency_ms": 1410.99,
+      "avg_ndcg_10": 0.67068
+    },
+    "by_dataset": {
+      "FiQa": {
+        "elo": 1434.65,
+        "elo_std": 49.83,
+        "wins": 139,
+        "losses": 203,
+        "ties": 8,
+        "win_rate": 0.3971,
+        "metrics": {
+          "ndcg@5": 0.1117,
+          "ndcg@10": 0.1211,
+          "recall@5": 0.105,
+          "recall@10": 0.13
+        },
+        "latency": {
+          "mean_ms": 2294.27,
+          "p50_ms": 1949.39,
+          "p90_ms": 4905.7
+        }
+      },
+      "SciFact": {
+        "elo": 1377.0,
+        "elo_std": 47.74,
+        "wins": 140,
+        "losses": 207,
+        "ties": 3,
+        "win_rate": 0.4,
+        "metrics": {
+          "ndcg@5": 0.8298,
+          "ndcg@10": 0.8324,
+          "recall@5": 0.871,
+          "recall@10": 0.876
+        },
+        "latency": {
+          "mean_ms": 1123.36,
+          "p50_ms": 1015.36,
+          "p90_ms": 1285.33
+        }
+      },
+      "PG": {
+        "elo": 1507.36,
+        "elo_std": 43.25,
+        "wins": 165,
+        "losses": 185,
+        "ties": 0,
+        "win_rate": 0.4714,
+        "latency": {
+          "mean_ms": 993.69,
+          "p50_ms": 839.42,
+          "p90_ms": 1435.57
+        }
+      },
+      "business_reports": {
+        "elo": 1375.88,
+        "elo_std": 54.49,
+        "wins": 138,
+        "losses": 208,
+        "ties": 4,
+        "win_rate": 0.3943,
+        "latency": {
+          "mean_ms": 2190.98,
+          "p50_ms": 1236.59,
+          "p90_ms": 5519.98
+        }
+      },
+      "MSMARCO": {
+        "elo": 1469.15,
+        "elo_std": 50.24,
+        "wins": 118,
+        "losses": 183,
+        "ties": 49,
+        "win_rate": 0.3371,
+        "metrics": {
+          "ndcg@5": 0.9852,
+          "ndcg@10": 0.9852,
+          "recall@5": 1.0,
+          "recall@10": 1.0
+        },
+        "latency": {
+          "mean_ms": 1100.28,
+          "p50_ms": 1023.08,
+          "p90_ms": 1642.23
+        }
+      },
+      "DBPedia": {
+        "elo": 1339.2,
+        "elo_std": 50.54,
+        "wins": 94,
+        "losses": 256,
+        "ties": 0,
+        "win_rate": 0.2686,
+        "metrics": {
+          "ndcg@5": 0.6774,
+          "ndcg@10": 0.744,
+          "recall@5": 0.0639,
+          "recall@10": 0.1061
+        },
+        "latency": {
+          "mean_ms": 763.36,
+          "p50_ms": 796.27,
+          "p90_ms": 1021.18
+        }
+      }
+    },
+    "comparisons": {
+      "zerank1": {
+        "wins": 88,
+        "losses": 204,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.2933
+      },
+      "bge-m3": {
+        "wins": 159,
+        "losses": 128,
+        "ties": 13,
+        "total": 300,
+        "win_rate": 0.53
+      },
+      "ctxl": {
+        "wins": 131,
+        "losses": 164,
+        "ties": 5,
+        "total": 300,
+        "win_rate": 0.4367
+      },
+      "voyage-light": {
+        "wins": 115,
+        "losses": 175,
+        "ties": 10,
+        "total": 300,
+        "win_rate": 0.3833
+      },
+      "zerank-light": {
+        "wins": 84,
+        "losses": 208,
+        "ties": 8,
+        "total": 300,
+        "win_rate": 0.28
+      },
+      "voyage": {
+        "wins": 74,
+        "losses": 219,
+        "ties": 7,
+        "total": 300,
+        "win_rate": 0.2467
+      },
+      "cohere": {
+        "wins": 143,
+        "losses": 144,
+        "ties": 13,
+        "total": 300,
+        "win_rate": 0.4767
+      }
+    }
+  }
+]

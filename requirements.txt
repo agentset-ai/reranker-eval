@@ -1,0 +1,18 @@
+
+sentence-transformers>=2.2.0
+numpy<2
+tqdm>=4.65.0
+faiss-cpu>=1.7.4
+requests>=2.31.0
+cohere>=4.37
+zeroentropy
+openai>=1.0.0
+pyyaml>=6.0
+matplotlib>=3.5.0
+transformers>=4.51.0  # 4.51.0+ required for Qwen3-Reranker-8B
+beir>=1.0.0
+streamlit>=1.28.0
+plotly>=5.17.0
+pandas>=2.0.0
+# Note: torch installation varies by platform - see install instructions below
+
