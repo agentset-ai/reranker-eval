@@ -1,0 +1,115 @@
+# RAG Evaluation Pipeline Configuration
+
+# Dataset configuration
+dataset:
+  name: "arguana"
+  base_path: "datasets/arguana"
+  corpus_file: "corpus.jsonl"
+  queries_file: "queries.jsonl"
+  qrels_file: "qrels/test.tsv"  
+  
+# Embedding configuration
+embedding:
+  model: "BAAI/bge-small-en-v1.5"
+  batch_size: 32
+  normalize: true
+  
+# Retrieval configuration
+retrieval:
+  method: "faiss"  
+  index_type: "flat_ip"  
+  top_k: 50  
+  query_subset: 50  
+  
+# Reranker configuration - All 9 rerankers for LLM judge
+rerankers:
+  - name: "zerank1"
+    type: "zerank"
+    model: "zerank-1"
+    api_key_env: "ZERANK_API_KEY"
+    top_k: 15
+  - name: "zerank-light"
+    type: "zerank"
+    model: "zerank-1-small"
+    api_key_env: "ZERANK_API_KEY"
+    top_k: 15
+  - name: "zerank2"
+    type: "zerank"
+    model: "zerank-2"
+    api_key_env: "ZERANK_API_KEY"
+    top_k: 15
+  - name: "bge-m3"
+    type: "replicate"
+    model: "yxzwayne/bge-reranker-v2-m3:7f7c6e9d18336e2cbf07d88e9362d881d2fe4d6a9854ec1260f115cabc106a8c"
+    api_key_env: "REPLICATE_API_TOKEN"
+    top_k: 15
+  - name: "ctxl"
+    type: "contextual"
+    model: "ctxl-rerank-v2-instruct-multilingual"
+    api_key_env: "CONTEXTUAL_API_KEY"
+    top_k: 15
+  - name: "voyage"
+    type: "voyage"
+    model: "rerank-2.5"
+    api_key_env: "VOYAGE_API_KEY"
+    top_k: 15
+  - name: "voyage-light"
+    type: "voyage"
+    model: "rerank-2.5-lite"
+    api_key_env: "VOYAGE_API_KEY"
+    top_k: 15
+  - name: "jina"
+    type: "jina"
+    model: "jina-reranker-v2-base-multilingual"
+    api_key_env: "JINA_API_KEY"
+    top_k: 15
+  - name: "cohere"
+    type: "cohere"
+    model: "rerank-english-v3.0"
+    api_key_env: "COHERE_API_KEY"
+    top_k: 15
+  - name: "cohere-v4"
+    type: "cohere"
+    model: "rerank-v4.0-pro"
+    api_key_env: "COHERE_V4_API_KEY"
+    top_k: 15
+  - name: "cohere-v4-fast"
+    type: "cohere"
+    model: "rerank-v4.0-fast"
+    api_key_env: "COHERE_V4_API_KEY"
+    top_k: 15
+  - name: "qwen3-8b"
+    type: "deepinfra"
+    model: "Qwen/Qwen3-Reranker-8B"
+    api_key_env: "DEEPINFRA_TOKEN"
+    top_k: 15
+
+# Evaluation configuration
+evaluation:
+  metrics: ["ndcg@5", "ndcg@10", "recall@5", "recall@10"]
+  generate_plots: true
+  
+# LLM Judge configuration
+llm_judge:
+  enabled: true
+  provider: "azure_openai"  
+  azure_api_key_env: "AZURE_API_KEY"
+  azure_resource_name_env: "AZURE_RESOURCE_NAME"
+  azure_deployment_id_env: "AZURE_DEPLOYMENT_ID"
+  elo:
+    initial_rating: 1500
+    k_factor: 32
+  prompt:
+    truncate_doc_length: 400
+    top_k_for_comparison: 15
+
+# Pipeline execution settings
+pipeline:
+  stages:
+    - embed      # Will skip if exists
+    - retrieve   # Will skip if exists
+    - rerank     # Rerank with all 9 rerankers
+    - evaluate   # Calculate metrics (NDCG, Recall)
+    #llm_judge  # LLM pairwise comparisons (enable after all datasets reranked)
+  skip_if_exists: true  # Skip existing stages to save time
+

@@ -107,31 +107,18 @@ def _zerank_rerank(query: str, documents: List[str], reranker: RerankerConfig, t
         'documents': documents,
         'top_n': top_k
     }
-    base_urls = [
-        os.getenv('ZERANK_BASE', 'https://api.zeroentropy.dev'),
-        'https://eu-api.zeroentropy.dev',
-        'https://api.zenml.io'
-    ]
+    # Use only EU endpoint (no fallback)
+    base_url = os.getenv('ZERANK_BASE', 'https://eu-api.zeroentropy.dev')
     start_time = time.time()
-    response = None
-    last_error = None
-    for base in base_urls:
-        try:
-            test_resp = requests.post(f'{base}/v1/models/rerank', json=payload, headers=headers, timeout=30)
-            if test_resp.status_code == 200:
-                response = test_resp
-                break
-            else:
-                last_error = f"{test_resp.status_code}: {test_resp.text[:100]}"
-        except Exception as e:
-            last_error = str(e)
-            continue
-    latency = time.time() - start_time
-    if response is None:
-        logging.error(f"Error in {reranker.name}: Could not connect. Last error: {last_error}")
-        return [], latency
-    if response.status_code != 200:
-        logging.error(f"Error in {reranker.name}: {response.status_code} - {response.text[:200]}")
+    try:
+        response = requests.post(f'{base_url}/v1/models/rerank', json=payload, headers=headers, timeout=30)
+        latency = time.time() - start_time
+        if response.status_code != 200:
+            logging.error(f"Error in {reranker.name}: {response.status_code} - {response.text[:200]}")
+            return [], latency
+    except Exception as e:
+        latency = time.time() - start_time
+        logging.error(f"Error in {reranker.name}: Could not connect to {base_url}. Error: {str(e)}")
         return [], latency
     data = response.json()
     results = []
@@ -385,6 +372,59 @@ def _replicate_rerank(query: str, documents: List[str], reranker: RerankerConfig
         return [], latency
 
 
+def _deepinfra_rerank(query: str, documents: List[str], reranker: RerankerConfig, top_k: int = 15) -> Tuple[List[RerankResult], float]:
+    """Rerank using DeepInfra API"""
+    headers = {
+        'Authorization': f'Bearer {reranker.api_key}',
+        'Content-Type': 'application/json'
+    }
+
+    # Default instruction for Qwen3-Reranker
+    instruction = 'Given a web search query, retrieve relevant passages that answer the query'
+
+    payload = {
+        'queries': [query],
+        'documents': documents,
+        'instruction': instruction
+    }
+
+    start_time = time.time()
+    try:
+        response = requests.post(
+            f'https://api.deepinfra.com/v1/inference/{reranker.model}',
+            json=payload,
+            headers=headers,
+            timeout=60
+        )
+        latency = time.time() - start_time
+
+        if response.status_code != 200:
+            logging.error(f"Error in DeepInfra ({reranker.name}): {response.status_code} - {response.text[:300]}")
+            return [], latency
+
+        data = response.json()
+        scores = data.get('scores', [])
+
+        # Create results with original indices and scores
+        results = []
+        scored_docs = list(enumerate(scores))
+        # Sort by score descending
+        scored_docs.sort(key=lambda x: x[1], reverse=True)
+
+        # Take top_k results
+        for rank, (idx, score) in enumerate(scored_docs[:top_k], 1):
+            results.append(RerankResult(doc_id=str(idx), rank=rank, score=score))
+
+        return results, latency
+
+    except Exception as e:
+        latency = time.time() - start_time
+        logging.error(f"Error in DeepInfra ({reranker.name}): {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        return [], latency
+
+
 def _qwen_rerank(query: str, documents: List[str], reranker: RerankerConfig, top_k: int = 15) -> Tuple[List[RerankResult], float]:
     """Rerank using Qwen3-Reranker model"""
     import torch
@@ -517,12 +557,115 @@ def _rerank_single(reranker: RerankerConfig, query: str, documents: List[str], t
         return _together_rerank(query, documents, reranker, top_k)
     elif reranker.type == 'qwen':
         return _qwen_rerank(query, documents, reranker, top_k)
+    elif reranker.type == 'deepinfra':
+        return _deepinfra_rerank(query, documents, reranker, top_k)
     elif reranker.type == 'contextual':
         return _contextual_rerank(query, documents, reranker, top_k)
     elif reranker.type == 'replicate':
         return _replicate_rerank(query, documents, reranker, top_k)
     else:
         raise ValueError(f"Unknown reranker type: {reranker.type}")
+
+
+def rerank_documents(
+    dataset_config: dict,
+    rerankers: list,
+    retrieval_config: dict,
+    run_dir: Path,
+    logger: logging.Logger
+):
+    """
+    Rerank documents for specific rerankers (helper function for add_reranker.py)
+    
+    Args:
+        dataset_config: Dataset configuration dict
+        rerankers: List of reranker config dicts
+        retrieval_config: Retrieval configuration dict
+        run_dir: Run directory path
+        logger: Logger instance
+    """
+    from ..config import RerankerConfig
+    
+    # Load retrieval results
+    retrieval_file = run_dir / "retrieval" / "results.json"
+    logger.info(f"Loading retrieval results from {retrieval_file}")
+    with open(retrieval_file, 'r') as f:
+        retrieval_results = json.load(f)
+    
+    # Load corpus for document texts
+    corpus_path = Path(dataset_config['base_path']) / dataset_config['corpus_file']
+    logger.info(f"Loading corpus from {corpus_path}")
+    corpus = {}
+    with open(corpus_path, 'r') as f:
+        for line in f:
+            doc = json.loads(line)
+            doc_id = doc['_id']
+            text = doc.get('title', '') + ' ' + doc.get('text', '')
+            corpus[doc_id] = text.strip()
+    
+    # Process each reranker
+    for reranker_dict in rerankers:
+        reranker = RerankerConfig(**reranker_dict)
+        
+        if reranker.type != 'qwen' and reranker.api_key is None:
+            logger.warning(f"Skipping {reranker.name} - API key not set")
+            continue
+        
+        logger.info(f"Reranking with {reranker.name}...")
+        
+        reranked_file = run_dir / "rerank" / f"reranked_{reranker.name}.jsonl"
+        latency_file = run_dir / "rerank" / f"latency_{reranker.name}.csv"
+        
+        latencies = []
+        reranked_queries = []
+        
+        for retrieval in retrieval_results:
+            query_id = retrieval['query_id']
+            query_text = retrieval['query_text']
+            
+            # Get document texts in retrieval order
+            doc_ids = [doc['doc_id'] for doc in retrieval['retrieved_docs']]
+            doc_texts = [corpus.get(doc_id, '') for doc_id in doc_ids]
+            
+            # Rerank
+            rerank_results, latency = _rerank_single(
+                reranker, query_text, doc_texts, reranker.top_k
+            )
+            
+            latencies.append(latency * 1000)  # Convert to ms
+            
+            # Map back to original doc_ids
+            reranked_docs = []
+            for r in rerank_results:
+                idx = int(r.doc_id)
+                if idx < len(doc_ids):
+                    reranked_docs.append({
+                        'doc_id': doc_ids[idx],
+                        'rank': r.rank,
+                        'score': r.score
+                    })
+            
+            reranked_queries.append({
+                'query_id': query_id,
+                'model': reranker.name,
+                'results': reranked_docs
+            })
+        
+        # Save reranked results
+        logger.info(f"Saving reranked results to {reranked_file}")
+        with open(reranked_file, 'w') as f:
+            for query_result in reranked_queries:
+                f.write(json.dumps(query_result) + '\n')
+        
+        # Save latency
+        logger.info(f"Saving latency data to {latency_file}")
+        with open(latency_file, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['latency_ms'])
+            for lat in latencies:
+                writer.writerow([lat])
+        
+        logger.info(f"Reranking complete for {reranker.name}: {len(reranked_queries)} queries, avg latency: {sum(latencies)/len(latencies):.2f}ms")
 
 
 def rerank_stage(config: Config, paths: RunPaths, logger: logging.Logger) -> Dict:

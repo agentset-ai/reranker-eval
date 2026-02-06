@@ -98,6 +98,77 @@ def _evaluate_reranker(reranked_file: str, qrels: Dict[str, Dict[str, int]], met
     return {m: np.mean(results[m]) if results[m] else 0.0 for m in metrics}
 
 
+def evaluate_rerankers(
+    dataset_config: dict,
+    reranked_files: list,
+    run_dir: Path,
+    logger: logging.Logger,
+    metrics: List[str] = None
+):
+    """
+    Evaluate reranked results for specific reranker files (helper function for add_reranker.py)
+    
+    Args:
+        dataset_config: Dataset configuration dict
+        reranked_files: List of Path objects to reranked result files
+        run_dir: Run directory path
+        logger: Logger instance
+        metrics: List of metrics to calculate (default: ['ndcg@5', 'ndcg@10', 'recall@5', 'recall@10'])
+    """
+    if metrics is None:
+        metrics = ['ndcg@5', 'ndcg@10', 'recall@5', 'recall@10']
+    
+    # Load qrels
+    qrels_path = Path(dataset_config['base_path']) / dataset_config.get('qrels_file', 'qrels/test.tsv')
+    if not qrels_path.exists():
+        logger.warning(f"Qrels file not found at {qrels_path}, skipping evaluation")
+        return
+    
+    logger.info(f"Loading relevance judgments from {qrels_path}")
+    qrels = _load_qrels(str(qrels_path))
+    logger.info(f"Loaded relevance judgments for {len(qrels)} queries")
+    
+    # Evaluate each reranker file
+    evaluation_results = {}
+    model_names = {}
+    
+    for reranked_file in reranked_files:
+        if not reranked_file.exists():
+            logger.warning(f"Reranked file not found: {reranked_file}, skipping...")
+            continue
+        
+        reranker_name = reranked_file.stem.replace("reranked_", "")
+        logger.info(f"Evaluating {reranker_name}...")
+        
+        metrics_dict = _evaluate_reranker(str(reranked_file), qrels, metrics)
+        evaluation_results[reranker_name] = metrics_dict
+        
+        # Get model name from first result
+        with open(reranked_file, 'r') as f:
+            line = f.readline()
+            if line:
+                data = json.loads(line)
+                model_names[reranker_name] = data.get('model', reranker_name)
+        
+        for metric, value in metrics_dict.items():
+            logger.info(f"  {metric}: {value:.4f}")
+    
+    # Save metrics to CSV
+    metrics_file = run_dir / "evaluation" / "metrics.csv"
+    logger.info(f"Saving metrics to {metrics_file}")
+    metrics_file.parent.mkdir(parents=True, exist_ok=True)
+    
+    with open(metrics_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        header = ['model'] + metrics
+        writer.writerow(header)
+        for reranker_name, metrics_dict in evaluation_results.items():
+            row = [reranker_name] + [f"{metrics_dict[m]:.4f}" for m in metrics]
+            writer.writerow(row)
+    
+    logger.info(f"Evaluation complete for {len(evaluation_results)} rerankers")
+
+
 def evaluate_stage(config: Config, paths: RunPaths, logger: logging.Logger) -> Dict:
     """
     Evaluate reranked results using ground truth labels
