@@ -13,3 +13,5 @@ venv/
 .env
 *.log
 set-api-keys.sh
+model-info.json
+benchmarks.json
