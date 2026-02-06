@@ -12,7 +12,7 @@ import argparse
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from pipeline.stages.llm-judge import llm_judge_stage
+from pipeline.stages.llm_judge import llm_judge_stage
 from pipeline.config import Config
 from pipeline.paths import RunPaths
 from pipeline.logger import setup_logger

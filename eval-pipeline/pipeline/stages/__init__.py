@@ -19,7 +19,7 @@ def __getattr__(name):
         from .evaluate import evaluate_stage
         return evaluate_stage
     elif name == 'llm_judge_stage':
-        from .llm-judge import llm_judge_stage
+        from .llm_judge import llm_judge_stage
         return llm_judge_stage
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
