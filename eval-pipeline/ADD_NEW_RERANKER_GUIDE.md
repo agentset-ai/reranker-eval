@@ -21,20 +21,6 @@ rerankers:
     top_k: 15
 ```
 
-Add to `model-info.json`:
-
-```json
-{
-  "name": "your-reranker",
-  "display_name": "Your Reranker",
-  "provider": "Provider Name",
-  "license": "License Type",
-  "cost_per_1m_tokens": 0.0,
-  "release_date": "YYYY-MM-DD",
-  "about_model": "Description"
-}
-```
-
 ### 2. Set API Key
 
 ```bash
@@ -44,7 +30,7 @@ export YOUR_API_KEY="your-key"
 ### 3. Run Reranking
 
 ```bash
-cd final-comparison
+cd eval-pipeline
 
 for dataset in msmarco arguana fiqa_small business-reports pg dbpedia scifact; do
   python add-reranker.py --dataset $dataset --reranker-name "your-reranker" --skip-evaluate

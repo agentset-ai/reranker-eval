@@ -19,7 +19,6 @@ Evaluation of 12 reranking models using LLM-as-judge pairwise comparisons across
 | 11 | BAAI/BGE Reranker v2 M3 | 1327 | 29% |
 | 12 | Jina Reranker v2 Base Multilingual | 1327 | 28% |
 
-Full results: [benchmarks.json](final-comparison/benchmarks.json)
 
 ## Datasets
 
@@ -40,22 +39,20 @@ Full results: [benchmarks.json](final-comparison/benchmarks.json)
 
 ## Usage
 
-See [final-comparison/ADD_NEW_RERANKER_GUIDE.md](final-comparison/ADD_NEW_RERANKER_GUIDE.md) for instructions on adding new rerankers.
+See [eval-pipeline/ADD_NEW_RERANKER_GUIDE.md](eval-pipeline/ADD_NEW_RERANKER_GUIDE.md) for instructions on adding new rerankers.
 
 ## Project Structure
 
 ```
-final-comparison/
+eval-pipeline/
 ├── config.yaml              Configuration
-├── model-info.json          Model metadata
-├── benchmarks.json          Full leaderboard results
 ├── pipeline/                Evaluation pipeline
 │   └── stages/
 │       ├── embed.py         Document embedding
 │       ├── retrieve.py      FAISS retrieval
 │       ├── rerank.py        Reranker integrations
-│       └── llm_judge.py     LLM-as-judge evaluation
-├── add_reranker.py          Add new reranker to evaluation
-├── run_llm_judge_standalone.py  Run judge independently
-└── aggregate_all_results.py     Aggregate cross-dataset results
+│       └── llm-judge.py     LLM-as-judge evaluation
+├── add-reranker.py          Add new reranker
+├── compare-rerankers.py     Compare all rerankers (ELO)
+└── aggregate-all-results.py Aggregate cross-dataset results
 ```
