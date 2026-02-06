@@ -51,11 +51,11 @@ for dataset in msmarco arguana fiqa_small business-reports pg dbpedia scifact; d
 done
 ```
 
-### 4. Run LLM Judge
+### 4. Compare Rerankers
 
 ```bash
 for dataset in msmarco arguana fiqa_small business-reports pg dbpedia scifact; do
-  python run-llm-judge-standalone.py --dataset $dataset
+  python compare-rerankers.py --dataset $dataset
 done
 ```
 
