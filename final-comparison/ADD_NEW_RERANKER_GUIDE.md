@@ -33,50 +33,30 @@ If your reranker requires an API key:
 export YOUR_API_KEY_ENV="your-api-key-here"
 ```
 
-### 3. Run the Automated Script
-
-The easiest way is to use the automated script that does everything:
-
-```bash
-cd final-comparison
-python add_reranker_and_judge.py --reranker-name "your-new-reranker"
-```
-
-This script will:
-- ✅ Add the reranker to all 6 datasets (reuses existing embeddings & retrieval)
-- ✅ Run LLM judge which:
-  - Reuses all existing judgments between old rerankers
-  - Only makes new judgments for pairs involving your new reranker
-  - Recalculates ELO from all judgments (existing + new)
-
-### 4. Alternative: Manual Steps
-
-If you prefer to run steps manually:
-
-#### Step 4a: Add Reranker to Each Dataset
+### 3. Add Reranker to Each Dataset
 
 ```bash
 cd final-comparison
 
 # Add to each dataset (embeddings & retrieval are reused automatically)
-python add_reranker.py --dataset msmarco --reranker-name "your-new-reranker" --skip-evaluate
-python add_reranker.py --dataset arguana --reranker-name "your-new-reranker" --skip-evaluate
-python add_reranker.py --dataset fiqa_small --reranker-name "your-new-reranker" --skip-evaluate
-python add_reranker.py --dataset business-reports --reranker-name "your-new-reranker" --skip-evaluate
-python add_reranker.py --dataset pg --reranker-name "your-new-reranker" --skip-evaluate
-python add_reranker.py --dataset dbpedia --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset msmarco --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset arguana --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset fiqa_small --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset business-reports --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset pg --reranker-name "your-new-reranker" --skip-evaluate
+python add-reranker.py --dataset dbpedia --reranker-name "your-new-reranker" --skip-evaluate
 ```
 
-#### Step 4b: Run LLM Judge (Reuses Existing Judgments)
+### 4. Run LLM Judge (Reuses Existing Judgments)
 
 ```bash
 # Run judge for each dataset (automatically reuses existing judgments)
-python run_llm_judge_standalone.py --dataset msmarco
-python run_llm_judge_standalone.py --dataset arguana
-python run_llm_judge_standalone.py --dataset fiqa_small
-python run_llm_judge_standalone.py --dataset business-reports
-python run_llm_judge_standalone.py --dataset pg
-python run_llm_judge_standalone.py --dataset dbpedia
+python run-llm-judge-standalone.py --dataset msmarco
+python run-llm-judge-standalone.py --dataset arguana
+python run-llm-judge-standalone.py --dataset fiqa_small
+python run-llm-judge-standalone.py --dataset business-reports
+python run-llm-judge-standalone.py --dataset pg
+python run-llm-judge-standalone.py --dataset dbpedia
 ```
 
 ### 5. Aggregate Results
@@ -84,10 +64,10 @@ python run_llm_judge_standalone.py --dataset dbpedia
 After all datasets are processed, aggregate the results:
 
 ```bash
-python aggregate_all_results.py
+python aggregate-all-results.py
 ```
 
-This creates `results_all_datasets.json` with:
+This creates `benchmarks.json` with:
 - Overall ELO ratings across all datasets
 - Per-dataset ELO ratings
 - Win/loss/tie statistics
@@ -129,15 +109,13 @@ ls runs/*/latest/llm_judge/judgments.jsonl
 cat runs/*/latest/llm_judge/elo_leaderboard.csv
 
 # Check aggregated results
-cat results_all_datasets.json | jq '.[] | select(.name == "your-new-reranker")'
+cat benchmarks.json | jq '.[] | select(.name == "your-new-reranker")'
 ```
 
 ## Troubleshooting
 
 ### Reranker Already Exists
-If you see "Reranker already exists, skipping", the reranker was already added. You can:
-- Skip the add step: `python add_reranker_and_judge.py --reranker-name "name" --skip-add`
-- Or delete the existing file and re-run
+If the reranker was already added, you can delete the existing reranked file and re-run the add-reranker.py script.
 
 ### Missing Embeddings
 If embeddings don't exist, you'll need to run the full pipeline once. But typically they should already exist from previous runs.
@@ -155,15 +133,22 @@ echo $YOUR_API_KEY_ENV
 # 2. Set API key
 export MY_RERANKER_API_KEY="key-here"
 
-# 3. Run automated script
+# 3. Add reranker to each dataset
 cd final-comparison
-python add_reranker_and_judge.py --reranker-name "my-reranker"
+for dataset in msmarco arguana fiqa_small business-reports pg dbpedia; do
+  python add-reranker.py --dataset $dataset --reranker-name "my-reranker" --skip-evaluate
+done
 
-# 4. Aggregate results
-python aggregate_all_results.py
+# 4. Run LLM judge for each dataset
+for dataset in msmarco arguana fiqa_small business-reports pg dbpedia; do
+  python run-llm-judge-standalone.py --dataset $dataset
+done
 
-# 5. Check results
-cat results_all_datasets.json | jq '.[] | select(.name == "my-reranker")'
+# 5. Aggregate results
+python aggregate-all-results.py
+
+# 6. Check results
+cat benchmarks.json | jq '.[] | select(.name == "my-reranker")'
 ```
 
 ## Notes

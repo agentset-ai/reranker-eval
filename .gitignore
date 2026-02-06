@@ -12,3 +12,4 @@ __pycache__/
 venv/
 .env
 *.log
+set-api-keys.sh
